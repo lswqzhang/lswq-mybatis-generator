@@ -15,12 +15,8 @@
  */
 package org.mybatis.generator;
 
-import static org.junit.Assert.fail;
-
-import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ParseException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -31,8 +27,11 @@ import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
-import com.github.javaparser.JavaParser;
-import com.github.javaparser.ParseProblemException;
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.fail;
 
 @RunWith(Parameterized.class)
 public class JavaCodeGenerationTest {
@@ -49,7 +48,7 @@ public class JavaCodeGenerationTest {
                 generatedJavaFile.getCompilationUnit().getFormattedContent().getBytes());
         try {
             JavaParser.parse(is);
-        } catch (ParseProblemException e) {
+        } catch (ParseException e) {
             fail("Generated Java File " + generatedJavaFile.getFileName() + " will not compile");
         }
     }
